@@ -45,7 +45,12 @@
   border: 1px solid black;
   border-radius: 5px;
   background-color: rgb(255, 148, 127);
+  cursor: pointer;
 }
+
+.App .buttons .start:active { 
+  background-color: rgb(242, 118, 94); 
+} 
 
 .App .buttons .reset{
   padding: 10px;
@@ -57,4 +62,9 @@
   font-size: large;
   border-radius: 5px;
   background-color: aquamarine;
+  cursor: pointer;
 }
+
+.App .buttons .reset:active { 
+  background-color: #67bea1; 
+} 

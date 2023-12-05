@@ -2,31 +2,54 @@ import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const currentTime = new Date().toLocaleTimeString();
-  const [time, setTime] = useState({
+  const defaultTime = {
     hr:0,
     min:0,
     sec:0
-  });
+  };
+  const currentTime = new Date().toLocaleTimeString();
+  const [resetTime, setResetTime] = useState(false);
+  const [startTime, setStartTime] = useState(false);
+  const [time, setTime] = useState(defaultTime);
 
   const updateTime = useCallback(() => {
     let {hr, min, sec} = time;
     if (sec < 60) {
       sec += 1;
     } else if (min < 60) {
+      sec = 0;
       min += 1;
-    } else {
+    } else if (hr < 24) {
+      min = 0;
       hr += 1;
     }
     return {hr, min, sec}
   }, [time]);
 
   useEffect(() => {
-    let time = setTimeout(() => {
-      setTime(updateTime())
-    }, 1000)
+    let time;
+    if (startTime) {
+      time = setTimeout(() => {
+        setTime(updateTime())
+      }, 1000);
+    }
 
-  }, [updateTime]);
+    return () => {
+      if (resetTime) {
+        clearTimeout(time);
+      }
+    }
+
+  }, [updateTime, resetTime, startTime]);
+
+  const handleStart = () => {
+    setStartTime(true);
+  };
+
+  const handleRest = () => {
+    setResetTime(true);
+    setTime(defaultTime);
+  };
 
   return (
     <div className="App">
@@ -36,8 +59,8 @@ function App() {
         <div className='counter'>{time.hr}:{time.min}:{time.sec}</div>
 
         <div className='buttons'>
-          <button className='start'>START</button>
-          <button className='reset'>RESET</button>
+          <button className='start' onClick={handleStart}>START</button>
+          <button className='reset' onClick={handleRest}>RESET</button>
         </div>
       </div>
     </div>
