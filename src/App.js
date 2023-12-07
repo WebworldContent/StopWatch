@@ -37,13 +37,19 @@ function App() {
     return () => {
       if (resetTime) {
         clearTimeout(time);
+        setResetTime(false);
       }
     }
 
   }, [updateTime, resetTime, startTime]);
 
   const handleStart = () => {
-    setStartTime(true);
+    if (!startTime) {
+      setStartTime(true);
+    } else {
+      setStartTime(false);
+    }
+    
   };
 
   const handleRest = () => {
@@ -59,8 +65,8 @@ function App() {
         <div className='counter'>{time.hr}:{time.min}:{time.sec}</div>
 
         <div className='buttons'>
-          <button className='start' onClick={handleStart}>START</button>
-          <button className='reset' onClick={handleRest}>RESET</button>
+          <button className='start' onClick={handleStart}>{!startTime ? `START` : `PAUSE`}</button>
+          <button className='reset' onClick={handleRest} disabled={startTime} >RESET</button>
         </div>
       </div>
     </div>
