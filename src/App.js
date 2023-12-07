@@ -10,6 +10,7 @@ function App() {
   const currentTime = new Date().toLocaleTimeString();
   const [resetTime, setResetTime] = useState(false);
   const [startTime, setStartTime] = useState(false);
+  const [milisec, setMilisec] = useState(0);
   const [time, setTime] = useState(defaultTime);
 
   const updateTime = useCallback(() => {
@@ -43,26 +44,50 @@ function App() {
 
   }, [updateTime, resetTime, startTime]);
 
+  useEffect(() => {
+    let time;
+    if (startTime) {
+      time = setTimeout(() => {
+        setMilisec((prevValue) => prevValue + 10)
+      }, 100);
+    } 
+
+    return () => {
+      if (milisec > 80) {
+        setMilisec(0);
+      }
+      if (resetTime) {
+        clearTimeout(time);
+        setResetTime(false);
+      }
+    }
+  }, [milisec, startTime, resetTime])
+
   const handleStart = () => {
     if (!startTime) {
       setStartTime(true);
     } else {
       setStartTime(false);
     }
-    
   };
 
   const handleRest = () => {
     setResetTime(true);
     setTime(defaultTime);
+    setMilisec(0);
   };
 
   return (
     <div className="App">
       <h1>Stop Watch</h1>
       <div className='stop-watch'>
-        <div className='time'>Time: {currentTime}</div>
-        <div className='counter'>{time.hr}:{time.min}:{time.sec}</div>
+        <div className='time'>Time {currentTime}</div>
+        <div className='counter'>
+          <span className="digits">{time.hr}</span>:
+          <span className="digits">{time.min}</span>:
+          <span className="digits">{time.sec}</span>.
+          <span className="digits">{milisec}</span>
+        </div>
 
         <div className='buttons'>
           <button className='start' onClick={handleStart}>{!startTime ? `START` : `PAUSE`}</button>

@@ -67,4 +67,20 @@
 
 .App .buttons .reset:active { 
   background-color: #67bea1; 
-} 
+}
+
+.App .counter{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.App .counter .digits {
+  padding: 10px;
+  border: 1px solid black;
+  margin: 5px;
+  width: 30px;
+  background-color: rgb(240, 103, 103);
+  margin-top: -5px;
+}
