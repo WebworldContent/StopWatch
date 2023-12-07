@@ -1,3 +1,22 @@
 # React Stop Watch App
 
-This project is create without any purpose in mind, just wanted to create a stop watch with react.
+### React Stopwatch
+A simple stopwatch application built using React. This project allows users to start, pause, and reset the stopwatch, displaying the elapsed time in hours, minutes, seconds, and milliseconds.
+
+### Features
+Start/Pause: Begin or pause the stopwatch to track elapsed time.
+Reset: Reset the stopwatch to zero.
+Real-time Clock: Displays the current time to provide additional context.
+
+![alt text](https://github.com/WebworldContent/StopWatch/blob/master/sample.png?raw=true)
+
+### Stopwatch Logic
+The stopwatch logic is implemented using React hooks (useState, useEffect, and useCallback). The stopwatch displays hours, minutes, seconds, and milliseconds. The user can start/pause the stopwatch and reset it to zero.
+
+### License
+This project is licensed under the MIT License.
+
+### Acknowledgments
+This project was created as a learning exercise in React.
+Inspired by stopwatch functionality in various applications.
+Feel free to customize and extend this stopwatch project according to your requirements!
